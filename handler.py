@@ -6,13 +6,16 @@ import shutil
 from config import IMG_EXT, PADDING, START_NUM
 
 
-def try_mkdir(root_directory, new_dir):
-    try:
-        os.mkdir(os.path.join(root_directory, new_dir))
-    except OSError as exc:
-        if exc.errno != errno.EEXIST:
-            raise
-        pass
+def try_mkdir(root_directory, new_dir, debug=True):
+    if not debug:
+        try:
+            os.mkdir(os.path.join(root_directory, new_dir))
+        except OSError as exc:
+            if exc.errno != errno.EEXIST:
+                raise
+            pass
+    else:
+        logging.debug(f"[try_mkdir] Will create f{os.path.join(root_directory, new_dir)}")
 
 
 def organize_folder(src_dir, des_dir, file_base_name, loop, around=1, debug=True):
