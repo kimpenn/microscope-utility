@@ -1,6 +1,8 @@
 import os
-from config import root_directory
+from config import root_directory, LOOP, ROUND, DEBUG_FLG
 from handler import try_mkdir, organize_folder
+import logging
+logging.basicConfig(format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S')
 
 
 def main():
@@ -24,8 +26,9 @@ def main():
     move_directory4 = directory4
 
     ##########################################
-    # Step 2: Create Destination Directories
+    # Step 2: Create Directories
     ##########################################
+    logging.info("Creating Directories.")
     try_mkdir(root_directory, "Analytical Model Fitting")
     try_mkdir(root_directory, "Analysis Code")
     try_mkdir(root_directory, "DAPI Analysis")
@@ -36,10 +39,11 @@ def main():
     ##########################################
     # Step 3: Organize the folders
     ##########################################
-    organize_folder(directory1, move_directory1, file_base_name1)
-    organize_folder(directory2, move_directory2, file_base_name2)
-    organize_folder(directory3, move_directory3, file_base_name3)
-    organize_folder(directory4, move_directory4, file_base_name4)
+    logging.info("Organizing Directories.")
+    organize_folder(directory1, move_directory1, file_base_name1, loop=LOOP, around=1, debug=DEBUG_FLG)
+    organize_folder(directory2, move_directory2, file_base_name2, loop=LOOP, around=1, debug=DEBUG_FLG)
+    organize_folder(directory3, move_directory3, file_base_name3, loop=LOOP, around=ROUND, debug=DEBUG_FLG)
+    organize_folder(directory4, move_directory4, file_base_name4, loop=LOOP, around=ROUND, debug=DEBUG_FLG)
 
 
 if __name__ == "__main__":
