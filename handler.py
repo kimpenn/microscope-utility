@@ -4,8 +4,6 @@ import logging
 import os
 import shutil
 from config import IMG_EXT, PADDING, START_NUM
-logging.basicConfig(format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S')
-
 
 def try_mkdir(root_directory, new_dir):
     try:

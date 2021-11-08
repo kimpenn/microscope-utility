@@ -2,10 +2,13 @@ import os
 from config import root_directory, LOOP, ROUND, DEBUG_FLG
 from handler import try_mkdir, organize_folder
 import logging
-logging.basicConfig(format='%(asctime)s %(message)s', datefmt='%m/%d/%Y %I:%M:%S')
+logging.basicConfig(format='%(asctime)s - %(levelname)s - %(message)s',
+                    datefmt='%m/%d/%Y %I:%M:%S',
+                    level=logging.INFO)
 
 
 def main():
+    logging.info(f"Programming running with Debug Mode: {DEBUG_FLG}")
     #########################################
     # Step 1: Set up Parameters
     ##########################################
@@ -28,7 +31,7 @@ def main():
     ##########################################
     # Step 2: Create Directories
     ##########################################
-    logging.info("Creating Directories.")
+    logging.info("Creating Directories...")
     try_mkdir(root_directory, "Analytical Model Fitting")
     try_mkdir(root_directory, "Analysis Code")
     try_mkdir(root_directory, "DAPI Analysis")
@@ -39,7 +42,7 @@ def main():
     ##########################################
     # Step 3: Organize the folders
     ##########################################
-    logging.info("Organizing Directories.")
+    logging.info("Organizing Directories...")
     organize_folder(directory1, move_directory1, file_base_name1, loop=LOOP, around=1, debug=DEBUG_FLG)
     organize_folder(directory2, move_directory2, file_base_name2, loop=LOOP, around=1, debug=DEBUG_FLG)
     organize_folder(directory3, move_directory3, file_base_name3, loop=LOOP, around=ROUND, debug=DEBUG_FLG)
