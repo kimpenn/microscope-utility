@@ -5,6 +5,7 @@ import os
 import shutil
 from config import IMG_EXT, PADDING, START_NUM
 
+
 def try_mkdir(root_directory, new_dir):
     try:
         os.mkdir(os.path.join(root_directory, new_dir))
@@ -26,7 +27,7 @@ def organize_folder(src_dir, des_dir, file_base_name, loop, around=1, debug=True
         for file in os.listdir(src_dir):
             new_name = file.replace(file_base_name, "").replace(IMG_EXT, "")
             new_name = new_name.zfill(PADDING)
-            logging.info(new_name)
+            logging.debug(new_name)
             new_filename = file_base_name + new_name + ".tif"
             os.rename(os.path.join(src_dir, file),
                       os.path.join(src_dir, new_filename))
@@ -36,7 +37,12 @@ def organize_folder(src_dir, des_dir, file_base_name, loop, around=1, debug=True
             try_mkdir(des_dir, "Position " + str(x).zfill(3))
 
         # Put the images into the new directories by indices
+        counter = 1
         for file in glob.glob(os.path.join(src_dir, "*" + IMG_EXT)):
+
+            if counter % 10 == 0:
+                logging.info(f"Progress in {file_base_name} : {counter}/ {loop*around}")
+
             new_name = file.replace(file_base_name, "").replace(IMG_EXT, "")
             new_name = int(new_name)
             folder = (new_name - START_NUM) % loop
@@ -45,9 +51,12 @@ def organize_folder(src_dir, des_dir, file_base_name, loop, around=1, debug=True
                                               "Position " + str(folder).zfill(3))
             full_path_old = os.path.join(src_dir, file)
             full_path_new = os.path.join(new_move_directory, file)
-            logging.info(new_name)
+            logging.debug(new_name)
+
             if debug:
                 logging.debug(f"full_path_old: {full_path_old}")
                 logging.debug(f"full_path_new: {full_path_new}")
             else:
                 shutil.move(full_path_old, full_path_new)
+
+            counter += 1
