@@ -13,8 +13,8 @@ def main():
     # Step 1: Set up Parameters
     ##########################################
     # File Prefixes ----------
-    file_base_name1 = "Brightfield_10msec_image_"
-    file_base_name2 = "DAPI_10msec_image_"
+    file_base_name1 = "Brightfield_BF_1msec_image_"
+    file_base_name2 = "DAPI_DAPI_10msec_image_"
     file_base_name3 = "GFP_GFP_10msec_image_"
     file_base_name4 = "Cy 3_Cy3_50msec_image_"
     # Source Directory ----------
@@ -32,12 +32,12 @@ def main():
     # Step 2: Create Directories
     ##########################################
     logging.info("Creating Directories...")
-    try_mkdir(root_directory, "Analytical Model Fitting")
-    try_mkdir(root_directory, "Analysis Code")
-    try_mkdir(root_directory, "DAPI Analysis")
-    try_mkdir(root_directory, "DAPI+BF")
-    try_mkdir(root_directory, "GFP ImageJ Analysis")
-    try_mkdir(root_directory, "Cy 3 ImageJ Analysis")
+    try_mkdir(root_directory, "Analytical Model Fitting", debug=DEBUG_FLG)
+    try_mkdir(root_directory, "Analysis Code", debug=DEBUG_FLG)
+    try_mkdir(root_directory, "DAPI Analysis", debug=DEBUG_FLG)
+    try_mkdir(root_directory, "DAPI+BF", debug=DEBUG_FLG)
+    try_mkdir(root_directory, "GFP ImageJ Analysis", debug=DEBUG_FLG)
+    try_mkdir(root_directory, "Cy 3 ImageJ Analysis", debug=DEBUG_FLG)
 
     ##########################################
     # Step 3: Organize the folders
@@ -45,8 +45,9 @@ def main():
     logging.info("Organizing Directories...")
     organize_folder(directory1, move_directory1, file_base_name1, loop=LOOP, around=1, debug=DEBUG_FLG)
     organize_folder(directory2, move_directory2, file_base_name2, loop=LOOP, around=1, debug=DEBUG_FLG)
-    organize_folder(directory3, move_directory3, file_base_name3, loop=LOOP, around=ROUND, debug=DEBUG_FLG)
-    organize_folder(directory4, move_directory4, file_base_name4, loop=LOOP, around=ROUND, debug=DEBUG_FLG)
+    # organize_folder(directory3, move_directory3, file_base_name3, loop=LOOP, around=ROUND, debug=DEBUG_FLG)
+    # TODO: number of images is not 9600 but 6096?
+    # organize_folder(directory4, move_directory4, file_base_name4, loop=LOOP, around=ROUND, debug=DEBUG_FLG)
 
 
 if __name__ == "__main__":
